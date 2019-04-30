@@ -6,6 +6,15 @@
 #define MATRIX_CPP_NEW_UTILITY_H
 
 
+#include "OPAndExpr.h"
+
+
+template <typename DstT,typename SrcT>
+void assigment_fun(DstT& dst,const SrcT& src)
+{
+    AssignmentExpr<DstT> dstExpr(dst);
+    AssignmentExpr<SrcT> srcExpr(src);
+}
 
 
 

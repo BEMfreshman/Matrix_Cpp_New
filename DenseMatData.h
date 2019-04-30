@@ -17,17 +17,23 @@ public:
     virtual ~DenseMatData() = 0;
 
 
+    size_t Rows() const{return m_NumRow;};
+    size_t Cols() const{return m_NumCol;};
+    size_t Size() const{return m_Size;};
+
+    T** Data() {return m_data;};
 
 protected:
     DenseMatData();
     DenseMatData(size_t NumRow,size_t NumCol);
+    DenseMatData(const DenseMatData& DMD);
 
     void Allocate(size_t NumRow,size_t NumCol);
     void DeAllocate();
 
 
 protected:
-    T* m_data;
+    T** m_data;
     size_t m_NumRow;
     size_t m_NumCol;
     size_t m_Size;
@@ -82,6 +88,18 @@ DenseMatData<T>::DenseMatData(size_t NumRow, size_t NumCol)
     catch(runtime_error& e)
     {
         throw e;
+    }
+}
+template <typename T>
+DenseMatData<T>::DenseMatData(const DenseMatData& DMD)
+{
+    Allocate(DMD.Rows(),DMD.Cols());
+    for(size_t i = 0 ; i < DMD.Rows();i++)
+    {
+        for(size_t j = 0 ; j < DMD.Cols();j++)
+        {
+            m_data[i][j] = DMD.m_data[i][j];
+        }
     }
 }
 
